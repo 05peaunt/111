@@ -1,0 +1,14 @@
+Simple and nonobstructive Jinja2 integration with Django.
+
+Provides:
+- Template engine backend for Jinja2
+- Automatic context processors (request, user, etc.)
+- Custom filters and globals (url, static, now, etc.)
+- Easy migration from Django templates
+
+Useful for projects that want to use Jinja2 templates alongside
+Django's built-in template system.
+
+Requires: Django >= 3.2, Jinja2 >= 2.11
+
+WWW: https://github.com/niwinz/django-jinja
