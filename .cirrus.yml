@@ -7,5 +7,5 @@ task:
     - git clone https://git.FreeBSD.org/ports.git /usr/ports
   build_script:
   - cp -r ./py-django-jinja /usr/ports/www/
-  - cd /usr/ports/www/pu-django-jinja
+  - cd /usr/ports/www/py-django-jinja
   - make install clean
