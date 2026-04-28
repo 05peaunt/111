@@ -1,5 +1,5 @@
 task:
-  name: Build FreeBSD port
+  name: Build FreeBSD port-
   freebsd_instance:
     image_family: freebsd-13-2
   setup_script:
