@@ -1,7 +1,6 @@
 task:
-  name: Build FreeBSD port-
+  name: Build FreeBSD port--
   freebsd_instance:
-    image_family: freebsd-13-2
   setup_script:
     - pkg install -y git
     - git clone https://git.FreeBSD.org/ports.git /usr/ports
@@ -10,4 +9,3 @@ task:
   - cp -R py-django-jinja/* /usr/ports/www/py-django-jinja/
   - cd /usr/ports/www/py-django-jinja
   - make install clean
-  #
