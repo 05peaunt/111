@@ -12,3 +12,4 @@ task:
   #- cp -R py-django-jinja/* /usr/ports/www/py-django-jinja/
   #- cd /usr/ports/www/py-django-jinja
   #- make install clean
+  #
