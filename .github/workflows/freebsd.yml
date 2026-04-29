@@ -1,18 +1,41 @@
-name: FreeBSD port test                     
-run-name: ${{ github.actor }} is run port freebsds 🚀
-on: [push]
+name: FreeBSD Port CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
 jobs:
-  Explore-FreeBSD-port-make:
+  freebsd-build:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v6
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up FreeBSD VM
+      uses: cross-platform-actions/action@v0.25.0
+      with:
+        operating_system: freebsd
+        version: 13.2
+        architecture: x86-64
+        memory: 4G
+        cpu_count: 2
+        
+    - name: Install dependencies
+      run: |
+        sudo pkg update
+        sudo pkg install -y git
+        sudo pkg install -y python py39-pip
+        
+    - name: Prepare port directory
+      run: |
+        sudo portsnap fetch extract
+        sudo mkdir -p /usr/ports/www/py-django-jinja
+        sudo cp -r ports/www/py-django-jinja/* /usr/ports/www/py-django-jinja/
+        
+    - name: Build port
+      run: |
+        cd /usr/ports/www/py-django-jinja
+        make makesum
+        make install clean
